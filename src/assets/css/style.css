@@ -217,6 +217,10 @@ a:focus {
   margin-left: 15px !important;
 }
 
+.m-l-20 {
+  margin-left: 20px !important;
+}
+
 .m-t-5 {
   margin-top: 5px !important;
 }
@@ -665,6 +669,12 @@ a:focus {
 /* Form components */
 label {
   font-weight: 500;
+}
+
+.label-right {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
 }
 
 textarea.form-control {
