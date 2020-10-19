@@ -21,8 +21,24 @@ class Order extends Component {
         showHidden: false,
         statusExpired: true,
         isDisabled: true,
-        textInput: []
+        showdata : this.displayData,
+        postVal : ""
       }
+
+
+      this.displayData = [];
+      this.appendData = this.appendData.bind(this);
+    }
+
+    appendData() {
+      this.displayData.push(<div style={{marginBottom:15}} className="row col-lg-12">
+                              <Select placeholder="Product Name" className="col-lg-6" options={this.state.getOrderProduct} onChange={this.optionsUnit}></Select>
+                              <Select placeholder="Unit" className="col-lg-2" options={this.state.getOrderUnit} onChange={this.setUnit}></Select>
+                            </div>);
+      this.setState({
+         showdata : this.displayData,
+         postVal : ""
+      });
     }
 
     componentDidMount() {
@@ -197,13 +213,6 @@ class Order extends Component {
         console.log(error);
       })
     }
-
-    addItem = (index) => {
-      let textInput = this.state.textInput;
-      textInput.push(<input type="text" 
-        onChangeText={(text) => this.addValues(text, index)} />);
-      this.setState({ textInput });
-    }
   
     
 
@@ -258,19 +267,15 @@ class Order extends Component {
                           <label className="col-lg-2 font-bold">Product</label>
                           <div className="col-lg-10">
                             <div className="row form-group">
-                              <div className="col-lg-6">
-                                <label htmlFor="userName">Product <label style={{color:'red'}}>*</label></label>
-                                <Select placeholder="Product Name" options={this.state.getOrderProduct} onChange={this.optionsUnit}></Select>
-                              </div>
-                              <div className="col-lg-2">
-                                <label htmlFor="userName">Unit <label style={{color:'red'}}>*</label></label>
-                                <Select placeholder="Unit" options={this.state.getOrderUnit} onChange={this.setUnit}></Select>
+                              <div className="row col-lg-12">
+                                  <label htmlFor="userName" className="col-lg-6">Product <label style={{color:'red'}}>*</label></label>
+                                  <label htmlFor="userName" className="col-lg-6">Unit <label style={{color:'red'}}>*</label></label>
+                                  <Select placeholder="Product Name" className="col-lg-6" options={this.state.getOrderProduct} onChange={this.optionsUnit}></Select>
+                                  <Select placeholder="Unit" className="col-lg-2" options={this.state.getOrderUnit} onChange={this.setUnit}></Select>
                               </div>
                             </div>
-                            <div>
-                            {this.state.textInput.map((value) => {
-                              return value
-                            })}
+                            <div className="row form-group">
+                              {this.displayData}
                             </div>
                             <div className="row form-group">
                               <div className="col-lg-2">
@@ -297,9 +302,8 @@ class Order extends Component {
                               </div>
                             </div>
                             <div className="row form-group">
-                              <button onClick={this.addItem} className="btn btn-warning waves-effect waves-light">
-                                  NEW ITEM <i className="fa fa-plus"></i>
-                              </button>
+
+                            <button type="submit" className="btn btn-warning waves-effect waves-light" onClick={this.appendData} value="Append">NEW ITEM <i className="fa fa-plus"></i></button>
                             </div>
                             <div className="row form-group">
                               <div className="offset-lg-4 col-lg-2">
